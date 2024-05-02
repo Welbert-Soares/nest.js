@@ -6,9 +6,8 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  Patch,
   Post,
-  Res,
+  Put,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 
@@ -17,30 +16,29 @@ export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Get()
-  findAll(@Res() response) {
-    return response.status(200).json({ messsage: 'Listagem de cursos' });
+  findAll() {
+    return this.coursesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return `Curso com ID ${id}`;
+  findOne(@Param('id') id: number) {
+    return this.coursesService.findOne(+id);
   }
 
   // @HttpCode(204)
   @Post()
   created(@Body() body) {
-    return body;
+    return this.coursesService.create(body);
   }
 
-  @Patch(':id')
-  updated(@Param('id') id: string, @Body() body) {
-    console.log(body);
-    return `Update course with ID ${id}`;
+  @Put(':id')
+  updated(@Param('id') id: number, @Body() body) {
+    return this.coursesService.update(+id, body);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `Remove course with ID ${id}`;
+  remove(@Param('id') id: number) {
+    return this.coursesService.remove(+id);
   }
 }
