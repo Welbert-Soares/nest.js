@@ -24,7 +24,7 @@ export class CoursesController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.coursesService.findOne(+id);
+    return this.coursesService.findOne(id);
   }
 
   // @HttpCode(204)
@@ -35,12 +35,12 @@ export class CoursesController {
 
   @Put(':id')
   updated(@Param('id') id: number, @Body() updateCourseDTO: UpdateCourseDTO) {
-    return this.coursesService.update(+id, updateCourseDTO);
+    return this.coursesService.update(id, updateCourseDTO);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.coursesService.remove(+id);
+    return this.coursesService.remove(id);
   }
 }
