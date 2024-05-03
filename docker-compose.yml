@@ -3,12 +3,12 @@ version: '3.1'
 services:
   db:
     build: .
-    container_name: devtrining-db
+    container_name: devtraining-db
     restart: always
     ports:
       - "5432:5432"
     volumes:
       - .docker/dbdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSOWORD=docker
-      - POSTGRES_DB=devtrining
+      - POSTGRES_PASSWORD=docker123
+      - POSTGRES_DB=devtraining
