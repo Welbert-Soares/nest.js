@@ -109,6 +109,7 @@ describe('CoursesService unit tests', () => {
     const course = await service.update(id, updateCourseDTO);
 
     expect(mockCourseRepository.save).toHaveBeenCalled();
+    expect(mockCourseRepository.preload).toHaveBeenCalled();
     expect(expectOutputCourse).toStrictEqual(course);
   });
 });
