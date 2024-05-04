@@ -1,15 +1,49 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { randomUUID } from 'node:crypto';
 import { CoursesService } from './courses.service';
 
-describe('CoursesService', () => {
+describe('CoursesService unit tests', () => {
   let service: CoursesService;
+  let id: string;
+  let create_at: Date;
+  let expectOutputTags: any;
+  let expectOutputCourse: any;
+  let mockCourseRepository: any;
+  let mockTagRepository: any;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [CoursesService],
-    }).compile();
+    service = new CoursesService();
+    id: randomUUID();
+    create_at: new Date();
+    expectOutputTags = [
+      {
+        id,
+        name: 'nestjs',
+        create_at,
+      },
+    ];
+    expectOutputCourse = {
+      id,
+      name: 'test',
+      description: 'test description',
+      create_at,
+      tags: expectOutputTags,
+    };
 
-    service = module.get<CoursesService>(CoursesService);
+    mockCourseRepository = {
+      create: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      save: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      update: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      preload: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      findALl: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      find: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      findOne: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+      remove: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourse)),
+    };
+
+    mockTagRepository = {
+      create: jest.fn().mockReturnValue(Promise.resolve(expectOutputTags)),
+      findOne: jest.fn(),
+    };
   });
 
   it('should be defined', () => {
