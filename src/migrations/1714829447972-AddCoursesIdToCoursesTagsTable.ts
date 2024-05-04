@@ -10,7 +10,7 @@ export class AddCoursesIdToCoursesTagsTable1714829447972
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      'courses_tags',
+      'courses_tags_tags',
       new TableColumn({
         name: 'coursesId',
         type: 'uuid',
@@ -19,7 +19,7 @@ export class AddCoursesIdToCoursesTagsTable1714829447972
     );
 
     await queryRunner.createForeignKey(
-      'courses_tags',
+      'courses_tags_tags',
       new TableForeignKey({
         name: 'courses_tags_courses',
         columnNames: ['coursesId'],
@@ -31,8 +31,11 @@ export class AddCoursesIdToCoursesTagsTable1714829447972
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('courses-tags', 'courses_tags_courses');
+    await queryRunner.dropForeignKey(
+      'courses-tags-tags',
+      'courses_tags_courses',
+    );
 
-    await queryRunner.dropColumn('courses-tags', 'coursesId');
+    await queryRunner.dropColumn('courses-tags-tags', 'coursesId');
   }
 }
